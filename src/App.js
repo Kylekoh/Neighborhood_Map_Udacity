@@ -3,9 +3,9 @@ import Map from './Map'
 import SquareAPI from './API/'
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  
+  constructor() {
+    super();
+
     this.state = {
       venues: [],
       markers: [],
@@ -14,10 +14,31 @@ class App extends Component {
     };
   }
 
+  closeAllMarker = () => {
+    const markers = this.state.markers.map(marker => {
+      marker.isOpen = false;
+      return marker;
+    })
+    this.setState({ markers: Object.assign(this.state.markers, markers)})
+  }
+
+  handleMarkerClick = marker => {
+    this.closeAllMarker();
+    marker.isOpen = true;
+    this.setState({ markers: Object.assign(this.state.markers, marker)})
+    const venue = this.state.venues.find(venue => venue.id === marker.id)
+
+    SquareAPI.getVenueDetails(marker.id).then(res => {
+      const newVenue = Object.assign(venue, res.response.venue)
+      this.setState({ venues: Object.assign(this.state.venues, newVenue)})
+      console.log(newVenue)
+    })
+  }
+
   componentDidMount() {
     SquareAPI.search({
       near: "Austin, TX",
-      query: "tacos",
+      query: "pizza",
     }).then(results => {
       const { venues } = results.response;
       const { center } = results.response.geocode.feature.geometry
@@ -26,11 +47,11 @@ class App extends Component {
           lat: venue.location.lat,
           lng: venue.location.lng,
           isOpen: false,
-          isVisible: true
+          isVisible: true,
+          id: venue.id
         }
       })
       this.setState({ venues, center, markers })
-      console.log(results)
     })
   }
 
@@ -39,7 +60,9 @@ class App extends Component {
     return (
       <div>
           <div className="app"> 
-            <Map {...this.state} />
+            <Map {...this.state} 
+              handleMarkerClick={this.handleMarkerClick}
+            />
           </div>  
       </div>
     );

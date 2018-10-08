@@ -1,55 +1,56 @@
-class Helper {
-	static baseURL () {
-		return "https://api.foursquare.com/v2"
-	}
+import React, { Component } from 'react';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
 
-	static auth() {
-		const keys = {
-			client_id : "WVFAAZS5244P3GU3YZMLVQISWZ1H1151OBTSGPS0K5NT5BOK",
-			client_secret : "4PPZFDBKXFMY5XOMJPWYSJZB51KFOZECRTLKYNXOROO0HEFM",
-			v : "20180929"
-		}
-		return Object.keys(keys).map(key => `${key}=${keys[key]}`).join("&")
-	}
+const MyMapComponent = withScriptjs(
+  withGoogleMap(props => (
+  	<GoogleMap
+  	  defaultZoom={8}
+  	  zoom={props.zoom}
+  	  defaultCenter={{ lat: -34.397, lng: 150.644 }}
+  	  center={props.center}
+  	>
+  	  {props.markers} &&
+  	    props.markers
+  	      .filter(marker => marker.isVisible)
+  	      .map((marker, idx) => {
+  	      	const venueInfo = props.venues.find(venue => venue.id === marker.id);
+  	      	return (
+  	      	  <Marker
+  	      	    key={idx}
+  	      	    position={{ lat: marker.lat, lng: marker.lng }}
+  	      	    onClick={() => props.handleMarkerClick(marker)}
+  	      	  >
+  	      	    {marker.isOpen && venueInfo.bestPhoto && (
+  	      	      <InfoWindow>
+  	      	      	<React.Fragment>
+  	      	      	  <img src={`${venueInfo.bestPhoto.prefix}200x200${venueInfo.bestPhoto.suffix}`} alt={"Venue"}/>
+  	      	      	  <p>{venueInfo.name}</p>
+  	      	      	</React.Fragment>
+  	      	      </InfoWindow>
+  	      	    )}
+  	      	  </Marker>  
+  	      	)
+  	      })
+  	</GoogleMap>      
+  ))
+)
 
-	static urlBuilder(urlPrams) {
-		if(!urlPrams) {
-			return "";
-		}
-		let ad1 = Object.keys(urlPrams)
-		let ad2 = ad1.map(key => `${key}=${urlPrams[key]}`).join("&")
-		console.log(ad1)
-		console.log(ad2)
-		return ad2
-	}
 
-	static headers() {
-		return {
-			Accept: "application/json"
-		}
-	}
-
-	static simpleFetch(endPoint, method, urlPrams) {
-		let requestData = {
-			method,
-			headers : Helper.headers
-		}
-		return fetch(
-			`${Helper.baseURL()}${endPoint}?${Helper.auth()}&${Helper.urlBuilder(urlPrams)}}`, requestData
-		).then(res => res.json());
-	}
+class index1 extends Component {
+  render() {
+    return (
+      <MyMapComponent
+        {...this.props}
+        isMarkerShown
+        googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyChbuMRkdicsgsk-asdQOu-qEoZajcP_P0"
+		loadingElement={<div style={{ height: `100%` }} />}
+		containerElement={<div style={{ height: `600px`}} />}
+		mapElement={<div style={{ height: `100%` }} />}
+      />
+    );
+  }
 }
 
-export default class SquareAPI {
-	static search(urlPrams) {
-		return Helper.simpleFetch("/venues/search", "GET", urlPrams);
-	}
 
-	static getVenueDetails(VENUE_ID) {
-		return Helper.simpleFetch(`/venues/${VENUE_ID}`, "GET")
-	}
 
-	static getVenuePhotos(VENUE_ID) {
-		return Helper.simpleFetch(`/venues/${VENUE_ID}/photos`, "GET")
-	}
-}
+export default map;
