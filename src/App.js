@@ -1,6 +1,19 @@
 import React, { Component } from 'react'
 import Map from './Map'
-import SquareAPI from './API/'
+// import SquareAPI from './API/'
+import axios from 'axios';
+
+
+const YELP_API_KEY = "GrUMHFgMBaO_tufUneZYR9GQT6qY_ygfTpdEKMEJB8neWXEUOctSxA47tDh-X1seI58cDFN1YZggv1JT7H84B0oTJsZXjm8y4P_GiR32FznokaUVxv4wGxoXNQa7W3Yx"
+
+const api = axios.create({
+  baseURL: 'https://shielded-hamlet-43668.herokuapp.com/https://api.yelp.com/v3',
+  method: 'GET',
+  json: true,
+  headers: {
+    authorization : `Bearer ${YELP_API_KEY}`
+  }
+})
 
 class App extends Component {
   constructor() {
@@ -14,45 +27,59 @@ class App extends Component {
     };
   }
 
-  closeAllMarker = () => {
-    const markers = this.state.markers.map(marker => {
-      marker.isOpen = false;
-      return marker;
-    })
-    this.setState({ markers: Object.assign(this.state.markers, markers)})
-  }
+  // closeAllMarker = () => {
+  //   const markers = this.state.markers.map(marker => {
+  //     marker.isOpen = false;
+  //     return marker;
+  //   })
+  //   this.setState({ markers: Object.assign(this.state.markers, markers)})
+  // }
 
-  handleMarkerClick = marker => {
-    this.closeAllMarker();
-    marker.isOpen = true;
-    this.setState({ markers: Object.assign(this.state.markers, marker)})
-    const venue = this.state.venues.find(venue => venue.id === marker.id)
+  // handleMarkerClick = marker => {
+  //   this.closeAllMarker();
+  //   marker.isOpen = true;
+  //   this.setState({ markers: Object.assign(this.state.markers, marker)})
+  //   const venue = this.state.venues.find(venue => venue.id === marker.id)
 
-    SquareAPI.getVenueDetails(marker.id).then(res => {
-      const newVenue = Object.assign(venue, res.response.venue)
-      this.setState({ venues: Object.assign(this.state.venues, newVenue)})
-      console.log(newVenue)
-    })
-  }
+  //   SquareAPI.getVenueDetails(marker.id).then(res => {
+  //     const newVenue = Object.assign(venue, res.response.venue)
+  //     this.setState({ venues: Object.assign(this.state.venues, newVenue)})
+  //     console.log(newVenue)
+  //   })
+  // }
+
 
   componentDidMount() {
-    SquareAPI.search({
-      near: "Austin, TX",
-      query: "pizza",
-    }).then(results => {
-      const { venues } = results.response;
-      const { center } = results.response.geocode.feature.geometry
-      const markers = venues.map(venue => {
-        return {
-          lat: venue.location.lat,
-          lng: venue.location.lng,
-          isOpen: false,
-          isVisible: true,
-          id: venue.id
-        }
-      })
-      this.setState({ venues, center, markers })
+    return api.get('/businesses/search', {
+      params: {
+        limit: 10,
+        location: 'Portland, OR',
+        categories: 'coffee,coffee shop',
+      }
+    }).then(res => (
+        console.log(res)
+      )).catch(err => {
+        console.log(err)
     })
+
+
+    // SquareAPI.search({
+    //   near: "Austin, TX",
+    //   query: "pizza",
+    // }).then(results => {
+    //   const { venues } = results.response;
+    //   const { center } = results.response.geocode.feature.geometry
+    //   const markers = venues.map(venue => {
+    //     return {
+    //       lat: venue.location.lat,
+    //       lng: venue.location.lng,
+    //       isOpen: false,
+    //       isVisible: true,
+    //       id: venue.id
+    //     }
+    //   })
+    //   this.setState({ venues, center, markers })
+    // })
   }
 
   render() {

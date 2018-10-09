@@ -1,12 +1,97 @@
-const yelp = require('yelp-fusion');
+class Helper {
+  static baseURL () {
+    return "https://api.foursquare.com/v2"
+  }
 
-const client = yelp.client("GrUMHFgMBaO_tufUneZYR9GQT6qY_ygfTpdEKMEJB8neWXEUOctSxA47tDh-X1seI58cDFN1YZggv1JT7H84B0oTJsZXjm8y4P_GiR32FznokaUVxv4wGxoXNQa7W3Yx");
+  static auth() {
+    const keys = {
+      client_id : "WVFAAZS5244P3GU3YZMLVQISWZ1H1151OBTSGPS0K5NT5BOK",
+      client_secret : "4PPZFDBKXFMY5XOMJPWYSJZB51KFOZECRTLKYNXOROO0HEFM",
+    }
+    return Object.keys(keys).map(key => `${key}=${keys[key]}`).join("&")
+  }
 
-client.search({
-  term:'Four Barrel Coffee',
-  location: 'san francisco, ca'
-}).then(response => {
-  console.log(response.jsonBody.businesses[0].name);
-}).catch(e => {
-  console.log(e);
-});
+  static urlBuilder(urlPrams) {
+    if(!urlPrams) {
+      return "";
+    }
+    let ad = Object.keys(urlPrams).map(key => `${key}=${urlPrams[key]}`).join("&")
+    return ad
+  }
+
+  static headers() {
+    return {
+      Accept: "application/json"
+    }
+  }
+
+  static simpleFetch(endPoint, method, urlPrams) {
+    let requestData = {
+      method,
+      headers : Helper.headers
+    }
+    return fetch(`${Helper.baseURL()}${endPoint}?${Helper.auth()}&${Helper.urlBuilder(urlPrams)}}`, requestData).then(res => res.json());
+  }
+}
+
+export default class SquareAPI {
+  static search(urlPrams) {
+    return Helper.simpleFetch("/venues/search", "GET", urlPrams);
+  }
+
+  static getVenueDetails(VENUE_ID) {
+    return Helper.simpleFetch(`/venues/${VENUE_ID}`, "GET")
+  }
+
+  static getVenuePhotos(VENUE_ID) {
+    return Helper.simpleFetch(`/venues/${VENUE_ID}/photos`, "GET")
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
