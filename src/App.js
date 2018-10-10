@@ -27,26 +27,26 @@ class App extends Component {
     };
   }
 
-  // closeAllMarker = () => {
-  //   const markers = this.state.markers.map(marker => {
-  //     marker.isOpen = false;
-  //     return marker;
-  //   })
-  //   this.setState({ markers: Object.assign(this.state.markers, markers)})
-  // }
+  closeAllMarker = () => {
+    const markers = this.state.markers.map(marker => {
+      marker.isOpen = false;
+      return marker;
+    })
+    this.setState({ markers: Object.assign(this.state.markers, markers)})
+  }
 
-  // handleMarkerClick = marker => {
-  //   this.closeAllMarker();
-  //   marker.isOpen = true;
-  //   this.setState({ markers: Object.assign(this.state.markers, marker)})
-  //   const venue = this.state.venues.find(venue => venue.id === marker.id)
+  handleMarkerClick = marker => {
+    this.closeAllMarker();
+    marker.isOpen = true;
+    this.setState({ markers: Object.assign(this.state.markers, marker)})
+    // const venue = this.state.venues.find(venue => venue.id === marker.id)
 
-  //   SquareAPI.getVenueDetails(marker.id).then(res => {
-  //     const newVenue = Object.assign(venue, res.response.venue)
-  //     this.setState({ venues: Object.assign(this.state.venues, newVenue)})
-  //     console.log(newVenue)
-  //   })
-  // }
+    // SquareAPI.getVenueDetails(marker.id).then(res => {
+    //   const newVenue = Object.assign(venue, res.response.venue)
+    //   this.setState({ venues: Object.assign(this.state.venues, newVenue)})
+    //   console.log(newVenue)
+    // })
+  }
 
 
   componentDidMount() {
@@ -56,30 +56,23 @@ class App extends Component {
         location: 'Portland, OR',
         categories: 'coffee,coffee shop',
       }
-    }).then(res => (
-        console.log(res)
-      )).catch(err => {
+    }).then(results => {
+       const venues = results.data.businesses
+       const center = results.data.region.center
+       console.log(center)
+       const markers = venues.map(venue => {
+        return {
+          lat: venue.coordinates.latitude,
+          lng: venue.coordinates.longitude,
+          isOpen: false,
+          isVisible: true,
+          id: venue.id
+        }
+       })
+        this.setState({ venues, center, markers })
+      }).catch(err => {
         console.log(err)
     })
-
-
-    // SquareAPI.search({
-    //   near: "Austin, TX",
-    //   query: "pizza",
-    // }).then(results => {
-    //   const { venues } = results.response;
-    //   const { center } = results.response.geocode.feature.geometry
-    //   const markers = venues.map(venue => {
-    //     return {
-    //       lat: venue.location.lat,
-    //       lng: venue.location.lng,
-    //       isOpen: false,
-    //       isVisible: true,
-    //       id: venue.id
-    //     }
-    //   })
-    //   this.setState({ venues, center, markers })
-    // })
   }
 
   render() {
