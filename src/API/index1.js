@@ -16,8 +16,7 @@ class Helper {
     if(!urlPrams) {
       return "";
     }
-    let ad = Object.keys(urlPrams).map(key => `${key}=${urlPrams[key]}`).join("&")
-    return ad
+    return Object.keys(urlPrams).map(key => `${key}=${urlPrams[key]}`).join("&")
   }
 
   static headers() {

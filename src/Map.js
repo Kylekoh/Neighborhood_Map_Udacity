@@ -18,16 +18,17 @@ const MyMapComponent = withScriptjs(
 					.filter(marker => marker.isVisible)
 					.map((marker, idx) => {
 					const venueInfo = props.venues.find(venue => venue.id === marker.id);
+					console.log(venueInfo)
 					return (
 						<Marker 
 						key={idx} 
 						position={{ lat: marker.lat, lng: marker.lng }}
 						onClick={() => props.handleMarkerClick(marker)}
 						>
-						  {marker.isOpen && venueInfo.bestPhoto && (	
+						  {marker.isOpen && venueInfo.image_url && (	
 							<InfoWindow>
 							  <React.Fragment>
-							    <img src={`${venueInfo.bestPhoto.prefix}200x200${venueInfo.bestPhoto.suffix}`} alt={"Venue"}/>
+							    <img src={`${venueInfo.image_url}`} alt={"Venue"} style={{width: "200px", height: "200px"}}/>
 								<p>{venueInfo.name}</p>
 							  </React.Fragment>
 							</InfoWindow>

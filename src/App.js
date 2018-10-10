@@ -39,13 +39,12 @@ class App extends Component {
     this.closeAllMarker();
     marker.isOpen = true;
     this.setState({ markers: Object.assign(this.state.markers, marker)})
-    // const venue = this.state.venues.find(venue => venue.id === marker.id)
+    const venue = this.state.venues.find(venue => venue.id === marker.id)
+    api.get(`/businesses/${venue.id}`).then(res => {
+      const newVenue = Object.assign(venue, res.data)
+      this.setState({ venues: Object.assign(this.state.venues, newVenue)})
+    })
 
-    // SquareAPI.getVenueDetails(marker.id).then(res => {
-    //   const newVenue = Object.assign(venue, res.response.venue)
-    //   this.setState({ venues: Object.assign(this.state.venues, newVenue)})
-    //   console.log(newVenue)
-    // })
   }
 
 
@@ -59,7 +58,6 @@ class App extends Component {
     }).then(results => {
        const venues = results.data.businesses
        const center = results.data.region.center
-       console.log(center)
        const markers = venues.map(venue => {
         return {
           lat: venue.coordinates.latitude,
