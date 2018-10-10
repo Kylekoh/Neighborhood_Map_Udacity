@@ -47,11 +47,10 @@ class App extends Component {
 
   }
 
-
   componentDidMount() {
     return api.get('/businesses/search', {
       params: {
-        limit: 10,
+        limit: 20,
         location: 'Portland, OR',
         categories: 'coffee,coffee shop',
       }
