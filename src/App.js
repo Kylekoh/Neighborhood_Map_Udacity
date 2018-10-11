@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import Map from './Map'
-// import SquareAPI from './API/'
 import axios from 'axios';
-
+import Controller from './Controller'
+import './App.css';
 
 const YELP_API_KEY = "GrUMHFgMBaO_tufUneZYR9GQT6qY_ygfTpdEKMEJB8neWXEUOctSxA47tDh-X1seI58cDFN1YZggv1JT7H84B0oTJsZXjm8y4P_GiR32FznokaUVxv4wGxoXNQa7W3Yx"
 
@@ -37,14 +37,13 @@ class App extends Component {
 
   handleMarkerClick = marker => {
     this.closeAllMarker();
-    marker.isOpen = true;
+    marker.isOpen = true; 
     this.setState({ markers: Object.assign(this.state.markers, marker)})
     const venue = this.state.venues.find(venue => venue.id === marker.id)
-    api.get(`/businesses/${venue.id}`).then(res => {
+    api.get(`/businesses/${venue.id}`).then(res => { 
       const newVenue = Object.assign(venue, res.data)
       this.setState({ venues: Object.assign(this.state.venues, newVenue)})
     })
-
   }
 
   componentDidMount() {
@@ -75,13 +74,15 @@ class App extends Component {
   render() {
 
     return (
-      <div>
           <div className="app"> 
+            <div className="controller">
+              <Controller   
+              />
+            </div>
             <Map {...this.state} 
               handleMarkerClick={this.handleMarkerClick}
             />
           </div>  
-      </div>
     );
   }
 }

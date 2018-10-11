@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, KmlLayer } from 'react-google-maps'
 
 
 const MyMapComponent = withScriptjs(
@@ -20,21 +20,26 @@ const MyMapComponent = withScriptjs(
 					const venueInfo = props.venues.find(venue => venue.id === marker.id);
 					return (
 						<Marker 
-						key={idx} 
-						position={{ lat: marker.lat, lng: marker.lng }}
-						onClick={() => props.handleMarkerClick(marker)}
+						  key={idx} 
+						  position={{ lat: marker.lat, lng: marker.lng }}
+						  onClick={() => props.handleMarkerClick(marker)}
 						>
 						  {marker.isOpen && venueInfo.image_url && (	
 							<InfoWindow>
 							  <React.Fragment>
 							    <img src={`${venueInfo.image_url}`} alt={"Venue"} style={{width: "200px", height: "200px"}}/>
 								<p>{venueInfo.name}</p>
+								<p>{venueInfo.phone}</p>
 							  </React.Fragment>
 							</InfoWindow>
 						  )}	
 						</Marker>
 					);	
 					})}
+			<KmlLayer
+		      url="http://googlemaps.github.io/js-v2-samples/ggeoxml/cta.kml"
+		      options={{ preserveViewport: true }}
+   		    />				
 		</GoogleMap>
 	))
 );
