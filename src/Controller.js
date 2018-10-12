@@ -16,7 +16,7 @@ class Controller extends Component {
 			      {this.props.venues.map((venue) =>
 			        <li key={venue.id} className="venue-list">
 			          <img src = {`${venue.image_url}`} className="list-image" />   
-			          {venue.name}
+			          <span>{venue.name}</span>			         
 			        </li>
 			      )}
 			    </ol>

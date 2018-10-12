@@ -75,14 +75,19 @@ class App extends Component {
   render() {
 
     return (
-          <div className="app">      
+          <React.Fragment>
+          <div className="main-title-wrapper">
+            <span classNam="main-title">AWESOME COFFEE IN THE PORTLAND</span>
+          </div>       
+          <div className="app"> 
             <Controller
               {...this.state} 
             />
             <Map {...this.state} 
               handleMarkerClick={this.handleMarkerClick}
             />
-          </div>  
+          </div>
+          </React.Fragment> 
     );
   }
 }
