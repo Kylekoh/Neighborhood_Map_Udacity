@@ -23,7 +23,7 @@ class App extends Component {
       venues: [],
       markers: [],
       center: [],
-      zoom: 12
+      zoom: 12,
     };
   }
 
@@ -45,6 +45,7 @@ class App extends Component {
       this.setState({ venues: Object.assign(this.state.venues, newVenue)})
     })
   }
+
 
   componentDidMount() {
     return api.get('/businesses/search', {
@@ -74,11 +75,10 @@ class App extends Component {
   render() {
 
     return (
-          <div className="app"> 
-            <div className="controller">
-              <Controller   
-              />
-            </div>
+          <div className="app">      
+            <Controller
+              {...this.state} 
+            />
             <Map {...this.state} 
               handleMarkerClick={this.handleMarkerClick}
             />

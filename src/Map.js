@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, KmlLayer } from 'react-google-maps'
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
 
 
 const MyMapComponent = withScriptjs(
 	withGoogleMap(props => (
-		<GoogleMap 
+		<GoogleMap
+			ref={props.onMapMounted}
 			defaultZoom={8}
 			zoom={props.zoom}
 			defaultCenter={{ lat: -122.654113, lng: 45.5157853 }}
@@ -12,7 +13,7 @@ const MyMapComponent = withScriptjs(
 				lat: props.center.latitude,
 				lng: props.center.longitude
 			}}
-		>
+		> 	
 			{props.markers && 
 				props.markers
 					.filter(marker => marker.isVisible)
@@ -35,11 +36,8 @@ const MyMapComponent = withScriptjs(
 						  )}	
 						</Marker>
 					);	
-					})}
-			<KmlLayer
-		      url="http://googlemaps.github.io/js-v2-samples/ggeoxml/cta.kml"
-		      options={{ preserveViewport: true }}
-   		    />				
+					})}	
+
 		</GoogleMap>
 	))
 );
@@ -53,7 +51,7 @@ class Map extends Component {
       	isMarkerShown
       	googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyChbuMRkdicsgsk-asdQOu-qEoZajcP_P0"
 		loadingElement={<div style={{ height: `100%` }} />}
-		containerElement={<div style={{ height: `600px`}} />}
+		containerElement={<div className="map-container" />}
 		mapElement={<div style={{ height: `100%` }} />}
 	  />	
     );
