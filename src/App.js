@@ -24,6 +24,9 @@ class App extends Component {
       markers: [],
       center: [],
       zoom: 12,
+      updateSuperState: obj => {
+        this.setState(obj)
+      }
     };
   }
 
@@ -44,6 +47,11 @@ class App extends Component {
       const newVenue = Object.assign(venue, res.data)
       this.setState({ venues: Object.assign(this.state.venues, newVenue)})
     })
+  }
+
+  handleListItemClick = venue => {
+    const marker = this.state.markers.find((marker) => venue.id === marker.id)
+    this.handleMarkerClick(marker);
   }
 
 
@@ -77,11 +85,12 @@ class App extends Component {
     return (
           <React.Fragment>
           <div className="main-title-wrapper">
-            <span classNam="main-title">AWESOME COFFEE IN THE PORTLAND</span>
+            <span className="main-title">AWESOME COFFEE IN THE PORTLAND</span>
           </div>       
           <div className="app"> 
             <Controller
-              {...this.state} 
+              {...this.state}
+              handleListItemClick={this.handleListItemClick}
             />
             <Map {...this.state} 
               handleMarkerClick={this.handleMarkerClick}

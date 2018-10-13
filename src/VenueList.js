@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 
 class VenueList extends Component {
+  
   render() {
-
-  	const { venues, marker } = this.props
+  const { venues } = this.props
+  	console.log(this.props.venues)
     return (
-    	<div className="venue-list-container">
-		    <ol className="venue-list-wrapper">
-		      {this.props.venues.map((venue) =>
-		        <li key={venue.id} className="venue-list">
-		          <img src = {`${venue.image_url}`} className="list-image" />   
-		          <span>{venue.name}</span>			         
-		        </li>
-		      )}
-		    </ol>
-		</div>
+	    <ol className="venue-list-wrapper">
+	      {this.props.venues && 
+	      this.props.venues.map((venue, id) =>
+	        <li key={venue.id} className="venue-list" onClick={() => this.props.handleListItemClick(venue)}>
+	          <img src = {`${venue.image_url}`} className="list-image" alt={`${venue.name}`} />   
+	          <span>{venue.name}</span>			         
+	        </li>
+	      )}
+	    </ol>
+
     );
   }
 }

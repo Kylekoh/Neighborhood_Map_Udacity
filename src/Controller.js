@@ -6,17 +6,15 @@ class Controller extends Component {
 
   render() {
 
-  	const { venues, center, marker } = this.props
+  	const { venues, markers, handleListItemClick, updateSuperState } = this.props
     
     return (
     	<div className="controller-container">
     		<SearchBar
     			venues = {venues}
+    			markers = {markers}
+    			updateSuperState = {updateSuperState}
     		/>
-	    	<VenueList 
-			 	venues = {venues}
-			 	marker = {marker}
-	    	/>
 	    </div>
     );
   }
