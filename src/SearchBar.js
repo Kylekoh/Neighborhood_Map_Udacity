@@ -42,7 +42,10 @@ class SearchBar extends Component {
   render() {
     return (
     	<React.Fragment>
-    	<input type={"search"} id={"search"} placeholder={"eg. StumpTown"} onChange={this.handleChange} />
+    	<div className="input-wrapper">
+    		<i className="fas fa-search" />
+    		<input type={"search"} id={"search"} placeholder={"Search venue..."} onChange={this.handleChange} />
+    	</div>
     	<VenueList 
     		venues={this.handleFilterVenue()}
     	/>
