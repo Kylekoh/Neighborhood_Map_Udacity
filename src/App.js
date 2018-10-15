@@ -54,11 +54,20 @@ class App extends Component {
     this.handleMarkerClick(marker);
   }
 
+  toggleMenuBars = () => {
+    const linksEL = document.getElementsByClassName("controller-container")[0]
+    if(linksEL.style.display === 'flex') {
+      linksEL.style.display = 'none'
+    }else {
+      linksEL.style.display = 'flex'
+    }
+  }
+
 
   componentDidMount() {
     return api.get('/businesses/search', {
       params: {
-        limit: 20,
+        limit: 15,
         location: 'Portland, OR',
         categories: 'coffee,coffee shop',
       }
@@ -85,8 +94,9 @@ class App extends Component {
     return (
           <React.Fragment>
           <div className="main-title-wrapper">
+            <i className="fas fa-bars" onClick={this.toggleMenuBars}></i>
             <span className="main-title">AWESOME COFFEE IN THE PORTLAND</span>
-          </div>       
+          </div>
           <div className="app"> 
             <Controller
               {...this.state}
