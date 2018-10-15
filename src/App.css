@@ -98,6 +98,35 @@
   margin-right: 0.6rem;
 }
 
+.gm-style-iw {
+  display: flex;
+  justify-content: center;
+}
+
+.infowindow-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.infowindow-wrapper img {
+  margin-bottom: 0.6rem;
+}
+
+.infowindow-wrapper p {
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #423A34;
+}
+
+.infowindow-wrapper p::after {
+  margin-top: 1rem;
+}
+
 @media screen and (max-width: 1150px) {
   .main-title-wrapper {
     font-size: 2.5rem;

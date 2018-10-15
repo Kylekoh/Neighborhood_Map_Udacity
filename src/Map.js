@@ -27,11 +27,11 @@ const MyMapComponent = withScriptjs(
 						>
 						  {marker.isOpen && venueInfo.image_url && (	
 							<InfoWindow>
-							  <React.Fragment>
+							  <div className="infowindow-wrapper">
 							    <img src={`${venueInfo.image_url}`} alt={"Venue"} style={{width: "200px", height: "200px"}}/>
-								<p>{venueInfo.name}</p>
-								<p>{venueInfo.phone}</p>
-							  </React.Fragment>
+								<p>Name : {venueInfo.name}</p>
+								<p>Phone : {venueInfo.phone}</p>
+							  </div>
 							</InfoWindow>
 						  )}	
 						</Marker>

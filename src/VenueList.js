@@ -11,7 +11,7 @@ class VenueList extends Component {
 	      this.props.venues.map((venue, id) =>
 	        <li key={venue.id} className="venue-list" onClick={() => this.props.handleListItemClick(venue)}>
 	          <img src = {`${venue.image_url}`} className="list-image" alt={`${venue.name}`} />   
-	          <span>{venue.name}</span>			         
+	          <span>{venue.name}</span>
 	        </li>
 	      )}
 	    </ol>
