@@ -40,10 +40,8 @@
 .controller-container {
   width: 25%;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
-  align-content: center;
 }
 
 .controller-container input {
@@ -61,7 +59,9 @@
   width: 90%;
   list-style-type: none;
   padding: 0;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .venue-list {
