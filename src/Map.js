@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps'
 
-
+// set google map api using React google map library 'react-google-maps'
+// more information about it, please refer 'https://tomchentw.github.io/react-google-maps/#installation'
 const MyMapComponent = withScriptjs(
 	withGoogleMap(props => (
 		<GoogleMap
@@ -28,7 +29,7 @@ const MyMapComponent = withScriptjs(
 						  {marker.isOpen && venueInfo.image_url && (	
 							<InfoWindow>
 							  <div className="infowindow-wrapper">
-							    <img src={`${venueInfo.image_url}`} alt={"Venue"} style={{width: "200px", height: "200px"}}/>
+							    <img src={`${venueInfo.image_url}`} alt={`${venueInfo.name}`} style={{width: "200px", height: "200px"}}/>
 								<p>Name : {venueInfo.name}</p>
 								<p>Phone : {venueInfo.phone}</p>
 							  </div>
@@ -51,7 +52,7 @@ class Map extends Component {
       	isMarkerShown
       	googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyChbuMRkdicsgsk-asdQOu-qEoZajcP_P0"
 		loadingElement={<div style={{ height: `100%` }} />}
-		containerElement={<div className="map-container" />}
+		containerElement={<section className="map-container" role="application" aria-label="location"/>}
 		mapElement={<div style={{ height: `100%` }} />}
 	  />	
     );

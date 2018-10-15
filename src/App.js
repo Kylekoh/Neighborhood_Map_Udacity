@@ -4,6 +4,8 @@ import axios from 'axios';
 import Controller from './Controller'
 import './App.css';
 
+
+// set the api using axios to fetch from YELP api
 const YELP_API_KEY = "GrUMHFgMBaO_tufUneZYR9GQT6qY_ygfTpdEKMEJB8neWXEUOctSxA47tDh-X1seI58cDFN1YZggv1JT7H84B0oTJsZXjm8y4P_GiR32FznokaUVxv4wGxoXNQa7W3Yx"
 
 const api = axios.create({
@@ -30,6 +32,7 @@ class App extends Component {
     };
   }
 
+  // This function will close the all the markers that opened
   closeAllMarker = () => {
     const markers = this.state.markers.map(marker => {
       marker.isOpen = false;
@@ -38,6 +41,8 @@ class App extends Component {
     this.setState({ markers: Object.assign(this.state.markers, markers)})
   }
 
+  // When user click the each marker, Infowindow that has information about marker
+  // will be pop up and other infowindow will be closed whenever click event happened
   handleMarkerClick = marker => {
     this.closeAllMarker();
     marker.isOpen = true; 
@@ -49,11 +54,17 @@ class App extends Component {
     })
   }
 
+  // When user click one of the venue in the venue list, Infowindow on the map 
+  // will be pop up by handleMarkerClick function 
   handleListItemClick = venue => {
     const marker = this.state.markers.find((marker) => venue.id === marker.id)
     this.handleMarkerClick(marker);
   }
 
+  // This function needs to control the hamburger menu bar
+  // When screen width reach under 650px, hamburger menu bar will be pop up
+  // and controller-container will be disappeared.
+  // And controller-container will be toggled by clicking hamburger menu bar
   toggleMenuBars = () => {
     const linksEL = document.getElementsByClassName("controller-container")[0]
     if(linksEL.style.display === 'flex') {
@@ -63,7 +74,8 @@ class App extends Component {
     }
   }
 
-
+// Set the data variations that come from YELP api
+// from '/business/search' api, we will use information about coffee shop in the portland
   componentDidMount() {
     return api.get('/businesses/search', {
       params: {
@@ -93,11 +105,11 @@ class App extends Component {
 
     return (
           <React.Fragment>
-          <div className="main-title-wrapper">
-            <i className="fas fa-bars" onClick={this.toggleMenuBars}></i>
+          <nav className="nav-wrapper" role="navigation" aria-label="Navigator">
+            <i className="fas fa-bars" onClick={this.toggleMenuBars} aria-label="search menu"></i>
             <span className="main-title">AWESOME COFFEE IN THE PORTLAND</span>
-          </div>
-          <div className="app"> 
+          </nav>
+          <main className="app"> 
             <Controller
               {...this.state}
               handleListItemClick={this.handleListItemClick}
@@ -105,7 +117,7 @@ class App extends Component {
             <Map {...this.state} 
               handleMarkerClick={this.handleMarkerClick}
             />
-          </div>
+          </main>
           </React.Fragment> 
     );
   }

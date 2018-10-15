@@ -12,7 +12,7 @@ class SearchBar extends Component {
     	venues: [],
   	}
   }
-
+  // As input query changed, venues that showing at the list will be changed
   handleFilterVenue = () => {
   	if(this.state.query.trim() !== "") {
   		const venues = this.props.venues.filter(venue => 
@@ -23,6 +23,7 @@ class SearchBar extends Component {
   	return this.props.venues
   }
 
+  // As input query changed, markers on the map will be changed
   handleChange = (e) => {
   	this.setState({ query: e.target.value })
   	
@@ -42,12 +43,13 @@ class SearchBar extends Component {
   render() {
     return (
     	<React.Fragment>
-    	<div className="input-wrapper">
+    	<label className="input-wrapper">
     		<i className="fas fa-search" />
     		<input type={"search"} id={"search"} placeholder={"Search venue..."} onChange={this.handleChange} />
-    	</div>
+    	</label>
     	<VenueList 
     		venues={this.handleFilterVenue()}
+    		handleListItemClick = {this.props.handleListItemClick}
     	/>
     	</React.Fragment>
     );

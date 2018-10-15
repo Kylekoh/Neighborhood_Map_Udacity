@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 class VenueList extends Component {
   
   render() {
-  const { venues } = this.props
-  	console.log(this.props.venues)
+  	
     return (
 	    <ol className="venue-list-wrapper">
 	      {this.props.venues && 
