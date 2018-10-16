@@ -6,8 +6,8 @@ Built with - HTML, CSS, JavaScript, React, google map API and YELP API.
 - [Project Description](#project-description)
 - [Instuction for loading the application](#instruction-for-loading-the-application)
 - [Folder Sturcture](#folder-structure)
-- [References]($references)
-- [Udacity Guides]($udacity-guides)
+- [References](#references)
+- [Udacity Guides](#udacity-guides)
 
 ## Project Description
 - This is the single page application featuring about neighborhood map about coffee shop near by in Portland, Oregon.
