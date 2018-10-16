@@ -19,9 +19,17 @@ Built with - HTML, CSS, JavaScript, React, google map API and YELP API.
 ```sh
 git clone https://github.com/Kylekoh/Neighborhood_Map_Udacity.git
 ```
+- You can use `yarn` instead of `npm` if yarn installed
+
+### Developer Build
+
 - Install all project with `npm install`
 - Start the server with `npm start`
-  - You can use `yarn` instead of `npm` if yarn installed
+
+### Production Build
+- run `npm run build`
+- `serve -s build`
+- And then visit `localhost:5000`
 
 ## Folder Structure
 ```
