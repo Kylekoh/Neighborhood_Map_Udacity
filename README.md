@@ -1,15 +1,15 @@
 # Neighborhood Map Project
-This project is last project of the Udacity Front-End Nanodegree Program.
+This project is last project of the Udacity Front-End Nanodegree Program.</br>
 Built with - HTML, CSS, JavaScript, React, google map API and YELP API. 
 
 ## Table of Contents
-- [Folder Structure](#folder-structure)
-- [Instuction for loading the application](#instructio-for-loading-the-application)
+- [Project Description](#project-description)
+- [Instuction for loading the application](#instruction-for-loading-the-application)
 - [Folder Structure](#folder-structure)
 - [References]($references)
 - [Udacity Guides]($udacity-guides)
 
-## Project description
+## Project Description
 - This is the single page application featuring about neighborhood map about coffee shop near by in Portland, Oregon.
 - The map built with Google map api and information about coffee shop such as photo, name, phone number get from YELP api.
 - At the filter feature makes it possible to search the coffee shop interacted with animated map marker.    
