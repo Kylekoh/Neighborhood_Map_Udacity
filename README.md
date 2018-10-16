@@ -21,7 +21,7 @@ git clone https://github.com/Kylekoh/Neighborhood_Map_Udacity.git
 ```
 - Install all project with `npm install`
 - Start the server with `npm start`
-  - You can use `yarn` instead of `npm`
+  - You can use `yarn` instead of `npm` if yarn installed
 
 ## Folder Structure
 ```

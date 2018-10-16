@@ -96,8 +96,8 @@ class App extends Component {
         }
        })
         this.setState({ venues, center, markers })
-      }).catch(err => {
-        console.log(err)
+      }).catch(() => {
+        alert("Please check your internet connection or Yelp api key")
     })
   }
 
@@ -105,7 +105,7 @@ class App extends Component {
 
     return (
           <React.Fragment>
-          <nav className="nav-wrapper" role="navigation" aria-label="Navigator">
+          <nav className="nav-wrapper" role="navigation" aria-label="Navigator" tabindex="0">
             <i className="fas fa-bars" onClick={this.toggleMenuBars} aria-label="search menu"></i>
             <span className="main-title">AWESOME COFFEE IN THE PORTLAND</span>
           </nav>
