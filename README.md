@@ -5,7 +5,7 @@ Built with - HTML, CSS, JavaScript, React, google map API and YELP API.
 ## Table of Contents
 - [Project Description](#project-description)
 - [Instuction for loading the application](#instruction-for-loading-the-application)
-- [Folder Structure](#folder-structure)
+- [Folder Sturcture](#folder-structure)
 - [References]($references)
 - [Udacity Guides]($udacity-guides)
 
@@ -23,7 +23,7 @@ git clone https://github.com/Kylekoh/Neighborhood_Map_Udacity.git
 - Start the server with `npm start`
   - You can use `yarn` instead of `npm`
 
-## Folder Sturcture
+## Folder Structure
 ```
 my-app/
   README.md
