@@ -1,6 +1,7 @@
 /* global google */
 
 import React, { Component } from 'react';
+import VenueList from './VenueList';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, demoFancyMapStyles } from 'react-google-maps'
 
 // set google map api using React google map library 'react-google-maps'
@@ -23,12 +24,14 @@ const MyMapComponent = withScriptjs(
 					.filter(marker => marker.isVisible)
 					.map((marker, idx, arr) => {
 					const venueInfo = props.venues.find(venue => venue.id === marker.id);
+					console.log(<VenueList/>)
 					return (
 						<Marker 
 						  key={idx} 
 						  position={{ lat: marker.lat, lng: marker.lng }}
 						  onClick={() => props.handleMarkerClick(marker)}
-						  animation={arr.length === 1 ? google.maps.Animation.BOUNCE : google.maps.Animation.DROP}
+						  defaultAnimation={'0'}
+						  animation={marker.isOpen ? '1' : '0'}
 						>
 						  {marker.isOpen && venueInfo.image_url && (	
 							<InfoWindow>
@@ -63,7 +66,7 @@ class Map extends Component {
       	isMarkerShown
       	googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyChbuMRkdicsgsk-asdQOu-qEoZajcP_P0"
 		loadingElement={<div style={{ height: `100%` }} />}
-		containerElement={<section className="map-container" role="application" aria-label="location" tabindex="0"/>}
+		containerElement={<section className="map-container" role="application" aria-label="location" tabndex="0"/>}
 		mapElement={<div style={{ height: `100%` }} />}
 	  />	
     );

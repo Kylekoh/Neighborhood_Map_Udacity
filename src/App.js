@@ -1,3 +1,5 @@
+/* global google */
+
 import React, { Component } from 'react'
 import Map from './Map'
 import axios from 'axios';
@@ -38,6 +40,7 @@ class App extends Component {
       marker.isOpen = false;
       return marker;
     })
+    console.log(markers)
     this.setState({ markers: Object.assign(this.state.markers, markers)})
   }
 
@@ -57,8 +60,9 @@ class App extends Component {
   // When user click one of the venue in the venue list, Infowindow on the map 
   // will be pop up by handleMarkerClick function 
   handleListItemClick = venue => {
+    console.log(venue)
     const marker = this.state.markers.find((marker) => venue.id === marker.id)
-    this.handleMarkerClick(marker);
+    this.handleMarkerClick(marker)    
   }
 
   // This function needs to control the hamburger menu bar
@@ -105,7 +109,7 @@ class App extends Component {
 
     return (
           <React.Fragment>
-          <nav className="nav-wrapper" role="navigation" aria-label="Navigator" tabindex="0">
+          <nav className="nav-wrapper" role="navigation" aria-label="Navigator" tabIndex="0">
             <i className="fas fa-bars" onClick={this.toggleMenuBars} aria-label="search menu"></i>
             <span className="main-title">AWESOME COFFEE IN THE PORTLAND</span>
           </nav>

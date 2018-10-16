@@ -43,7 +43,7 @@ class SearchBar extends Component {
   render() {
     return (
     	<React.Fragment>
-    	<label className="input-wrapper" for={"search"}>
+    	<label className="input-wrapper" htmlFor={"search"}>
     		<i className="fas fa-search" />
     		<input type={"search"} id={"search"} placeholder={"Search venue..."} onChange={this.handleChange} />
     	</label>
